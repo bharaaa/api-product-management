@@ -67,7 +67,6 @@ class ProductController extends Controller
         }
     }
 
-
     public function delete(string $id): JsonResponse
     {
         try {
