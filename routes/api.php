@@ -14,6 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::prefix("/category-products")
+    ->controller(\App\Http\Controllers\CategoryProductController::class)
+    ->group(function () {
+        Route::get("", "getAll");
+        Route::post("", "create");
+        Route::get("/{id}", "getById");
+        Route::put("/{id}", "update");
+        Route::delete("/{id}", "delete");
+    });

@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Services\Impl;
+namespace App\Services;
 
 use App\Exceptions\ServiceException;
 use App\Http\Requests\CategoryProductRequest;
+use App\Http\Resources\CategoryProductCollection;
 use App\Http\Resources\CategoryProductResource;
 use App\Models\CategoryProduct;
-use App\Repositories\CategoryProductRepositoryInterface;
-use App\Services\CategoryProductServiceInterface;
+use App\Repositories\Contracts\CategoryProductRepositoryInterface;
+use App\Services\Contracts\CategoryProductServiceInterface;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use function PHPUnit\Framework\isNull;
@@ -70,11 +71,11 @@ class CategoryProductService implements CategoryProductServiceInterface
         }
     }
 
-    public function getAll(Request $request): CategoryProductResource
+    public function getAll(Request $request): CategoryProductCollection
     {
         try {
             $categories = $this->categoryProductRepository->findAll($request);
-            return new CategoryProductResource($categories);
+            return new CategoryProductCollection($categories);
         } catch (\Exception $e) {
             throw new ServiceException($e->getMessage(), 500);
         }

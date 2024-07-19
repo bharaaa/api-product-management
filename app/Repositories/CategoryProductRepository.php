@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repositories\Impl;
+namespace App\Repositories;
 
 use App\Models\CategoryProduct;
-use App\Repositories\CategoryProductRepositoryInterface;
+use App\Repositories\Contracts\CategoryProductRepositoryInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
