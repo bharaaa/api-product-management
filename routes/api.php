@@ -21,8 +21,18 @@ use Illuminate\Support\Facades\Route;
 Route::prefix("/category-products")
     ->controller(\App\Http\Controllers\CategoryProductController::class)
     ->group(function () {
-        Route::get("", "getAll");
         Route::post("", "create");
+        Route::get("", "getAll");
+        Route::get("/{id}", "getById");
+        Route::put("/{id}", "update");
+        Route::delete("/{id}", "delete");
+    });
+
+Route::prefix("/products")
+    ->controller(\App\Http\Controllers\ProductController::class)
+    ->group(function () {
+        Route::post("", "create");
+        Route::get("", "getAll");
         Route::get("/{id}", "getById");
         Route::put("/{id}", "update");
         Route::delete("/{id}", "delete");
