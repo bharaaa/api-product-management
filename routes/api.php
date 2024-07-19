@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryProductController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,27 +21,31 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::prefix("/auth")->controller(\App\Http\Controllers\AuthController::class)->group(function () {
+// Public Routes
+Route::prefix("/auth")->controller(AuthController::class)->group(function () {
     Route::post("/login", "login")->name("login");
     Route::post("/register", "register");
 });
 
-Route::prefix("/category-products")
-    ->controller(\App\Http\Controllers\CategoryProductController::class)
-    ->group(function () {
-        Route::post("", "create");
-        Route::get("", "getAll");
-        Route::get("/{id}", "getById");
-        Route::put("/{id}", "update");
-        Route::delete("/{id}", "delete");
-    });
+// Protected Routes
+Route::middleware('jwt')->group(function () {
+    Route::prefix("/category-products")
+        ->controller(CategoryProductController::class)
+        ->group(function () {
+            Route::post("", "create");
+            Route::get("", "getAll");
+            Route::get("/{id}", "getById");
+            Route::put("/{id}", "update");
+            Route::delete("/{id}", "delete");
+        });
 
-Route::prefix("/products")
-    ->controller(\App\Http\Controllers\ProductController::class)
-    ->group(function () {
-        Route::post("", "create");
-        Route::get("", "getAll");
-        Route::get("/{id}", "getById");
-        Route::put("/{id}", "update");
-        Route::delete("/{id}", "delete");
-    });
+    Route::prefix("/products")
+        ->controller(ProductController::class)
+        ->group(function () {
+            Route::post("", "create");
+            Route::get("", "getAll");
+            Route::get("/{id}", "getById");
+            Route::put("/{id}", "update");
+            Route::delete("/{id}", "delete");
+        });
+});
