@@ -64,7 +64,7 @@ class CategoryProductController extends Controller
         }
     }
 
-    public function delete(string $id): JsonResponse
+    public function deleteById(string $id): JsonResponse
     {
         try {
             $this->categoryProductService->delete($id);

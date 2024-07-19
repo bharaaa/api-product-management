@@ -25,5 +25,5 @@ Route::prefix("/category-products")
         Route::post("", "create");
         Route::get("/{id}", "getById");
         Route::put("/{id}", "update");
-        Route::delete("/{id}", "delete");
+        Route::delete("/{id}", "deleteById");
     });
