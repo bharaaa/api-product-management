@@ -95,6 +95,7 @@ class ProductService implements ProductServiceInterface
             throw new ServiceException($e->getMessage(), 500);
         }
     }
+
     public function update(ProductUpdateRequest $request): ProductResource
     {
         $data = $request->validated();
@@ -110,15 +111,23 @@ class ProductService implements ProductServiceInterface
             if (isset($data["price"])) {
                 $product->price = $data["price"];
             }
-            if (isset($data["product_category_id"])) {
+            if (isset($data["productCategoryId"])) {
                 $product->product_category_id = $data["productCategoryId"];
             }
 
-            if (isset($data["image"])) {
-                $product->image = $data["image"];
+            // Handle file upload if a new image is provided
+            if ($request->hasFile('image')) {
+                // Delete old image if exists
+                if ($product->image && Storage::exists('public/' . $product->image)) {
+                    Storage::delete('public/' . $product->image);
+                }
+
+                // Store new image and update path
+                $product->image = $request->file('image')->store('images', 'public');
             }
 
             $this->productRepository->update($product);
+
             return new ProductResource(
                 [
                     "product" => $product,

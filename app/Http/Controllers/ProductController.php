@@ -55,15 +55,18 @@ class ProductController extends Controller
     public function update(ProductUpdateRequest $request, string $id): JsonResponse
     {
         try {
-            if ($request->id != $id) throw new Exception("bad request", 400);
+            if ($request->id != $id) {
+                throw new Exception("bad request", 400);
+            }
 
             $product = $this->productService->update($request);
 
-            return $this->successResponse($product, "Successfully update product", 200);
+            return $this->successResponse($product, "Successfully updated product", 200);
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage(), $e->getCode());
         }
     }
+
 
     public function delete(string $id): JsonResponse
     {
