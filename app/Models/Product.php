@@ -22,7 +22,6 @@ class Product extends Model
         "product_category_id",
         "price",
         "image",
-        "imageUrl",
         "is_active"
     ];
 }

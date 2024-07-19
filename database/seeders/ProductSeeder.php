@@ -18,11 +18,10 @@ class ProductSeeder extends Seeder
     {
         DB::table('m_product')->insert([
             'id' => Str::uuid(),
-            'product_category_id' => 'd3b92595-d262-4ee2-b472-e33b4edf8ff1',
+            'product_category_id' => 'b1739f87-7292-4c81-81ac-db50790a8efe',
             'name' => Str::random(10),
             'price' => rand(100, 1000),
             'image' => Str::random(10).'.jpg',
-            'image_url' => 'https://'.Str::random(10).'.com/'.Str::random(10),
             'is_active' => true,
             'created_at' => now(),
             'updated_at' => now(),
