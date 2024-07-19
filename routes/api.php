@@ -18,6 +18,11 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+Route::prefix("/auth")->controller(\App\Http\Controllers\AuthController::class)->group(function () {
+    Route::post("/login", "login")->name("login");
+    Route::post("/register", "register");
+});
+
 Route::prefix("/category-products")
     ->controller(\App\Http\Controllers\CategoryProductController::class)
     ->group(function () {
