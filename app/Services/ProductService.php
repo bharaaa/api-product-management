@@ -14,6 +14,7 @@ use App\Services\Contracts\ProductServiceInterface;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProductService implements ProductServiceInterface
 {
@@ -36,11 +37,16 @@ class ProductService implements ProductServiceInterface
         try {
             DB::beginTransaction();
 
+            $imagePath = null;
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('images', 'public');
+            }
+
             $product = new Product([
                 "product_category_id" => $data["productCategoryId"],
                 "name" => $data["name"],
                 "price" => $data["price"],
-                "image" => $data["image"],
+                "image" => $imagePath,
             ]);
 
             $this->productRepository->create($product);

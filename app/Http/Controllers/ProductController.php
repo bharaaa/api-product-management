@@ -25,11 +25,12 @@ class ProductController extends Controller
     {
         try {
             $product = $this->productService->create($request);
-            return $this->successResponse($product, "Successfully create product", 201);
+            return $this->successResponse($product, "Successfully created product", 201);
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage(), $e->getCode());
         }
     }
+
     public function getAll(Request $request): JsonResponse
     {
         try {

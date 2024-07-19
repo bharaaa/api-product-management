@@ -27,7 +27,7 @@ class ProductRequest extends FormRequest
             "productCategoryId" => ["required"],
             "name" => ["required", "max:150"],
             "price" => ["required"],
-            "image" => ["required"],
+            "image" => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }
