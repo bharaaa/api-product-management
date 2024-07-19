@@ -7,7 +7,7 @@ The API Management Product is a RESTful API created with the Laravel Framework. 
 - Product Management: Enables you to add, update, and remove products.
 
 Kindly check the documentation listed below.
-- Postman documentation: https://documenter.getpostman.com/view/32334876/2sA35Eb465
+- Postman documentation: https://documenter.getpostman.com/view/32334876/2sA3kUFMfC
 
 ## Technology
 This project is created with:
