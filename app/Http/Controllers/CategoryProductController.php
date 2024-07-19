@@ -30,6 +30,27 @@ class CategoryProductController extends Controller
         }
     }
 
+    public function getAll(Request $request): JsonResponse
+    {
+        try {
+            $categories = $this->categoryService->getAll($request);
+
+            return $this->successResponsePagination($categories, "Successfully get all category product", 200);
+        } catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage(), $e->getCode());
+        }
+    }
+
+    public function getById(string $id): JsonResponse
+    {
+        try {
+            $category = $this->categoryService->getById($id);
+
+            return $this->successResponse($category, "Successfully get category product", 200);
+        } catch (\Exception $e) {
+            return $this->errorResponse($e->getMessage(), $e->getCode());
+        }
+    }
     public function update(CategoryProductRequest $request, string $id): JsonResponse
     {
         try {
@@ -54,25 +75,4 @@ class CategoryProductController extends Controller
         }
     }
 
-    public function getAll(Request $request): JsonResponse
-    {
-        try {
-            $categories = $this->categoryService->getAll($request);
-
-            return $this->successResponsePagination($categories, "Successfully get all category product", 200);
-        } catch (\Exception $e) {
-            return $this->errorResponse($e->getMessage(), $e->getCode());
-        }
-    }
-
-    public function getById(string $id): JsonResponse
-    {
-        try {
-            $category = $this->categoryService->getById($id);
-
-            return $this->successResponse($category, "Successfully get category product", 200);
-        } catch (\Exception $e) {
-            return $this->errorResponse($e->getMessage(), $e->getCode());
-        }
-    }
 }
