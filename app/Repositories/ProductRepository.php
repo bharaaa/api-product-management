@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Repositories\Impl;
+namespace App\Repositories;
 
 use App\Models\Product;
 use App\Repositories\Contracts\ProductRepositoryInterface;
-use App\Repositories\IProductRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
