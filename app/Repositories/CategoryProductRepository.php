@@ -17,15 +17,15 @@ class CategoryProductRepository implements CategoryProductRepositoryInterface
 
         $categories = CategoryProduct::query()->where("is_active", true);
 
-        $categories = $categories->where(function (Builder $builder) use ($request){
+        $categories = $categories->where(function (Builder $builder) use ($request) {
             $name = $request->input("name");
-            if($name){
-                $builder->where("name", 'like', '%'.$name.'%');
+            if ($name) {
+                $builder->where("name", 'like', '%' . $name . '%');
             }
         });
 
         return $categories
-            ->orderBy("created_at")->paginate(perPage: $size,page: $page);
+            ->orderBy("created_at")->paginate(perPage: $size, page: $page);
     }
 
     public function findById(string $id): ?CategoryProduct
@@ -51,5 +51,4 @@ class CategoryProductRepository implements CategoryProductRepositoryInterface
         $category->exists = true;
         $category->delete();
     }
-
 }

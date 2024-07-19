@@ -21,7 +21,8 @@ class CategoryProductResource extends JsonResource
         ];
     }
 
-    public function toModel(){
+    public function toModel()
+    {
         return new CategoryProduct([
             "id" => $this->id,
             "name" => $this->name

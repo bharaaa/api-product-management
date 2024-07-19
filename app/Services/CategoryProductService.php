@@ -26,12 +26,12 @@ class CategoryProductService implements CategoryProductServiceInterface
     {
         $data = $request->validated();
 
-        try{
+        try {
             $category = new CategoryProduct($data);
             $this->categoryProductRepository->create($category);
 
             return new CategoryProductResource($category);
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             throw new ServiceException($e->getMessage(), 500);
         }
     }
@@ -39,60 +39,60 @@ class CategoryProductService implements CategoryProductServiceInterface
     public function update(CategoryProductRequest $request): CategoryProductResource
     {
         $data = $request->validated();
-        try{
+        try {
             $category = $this->getById($data["id"]);
-            $category= $category->toModel();
+            $category = $category->toModel();
 
-            if(isset($data["name"])){
+            if (isset($data["name"])) {
                 $category->name = $data["name"];
             }
 
             $this->categoryProductRepository->update($category);
             return new CategoryProductResource($category);
-        }catch(ServiceException $e){
+        } catch (ServiceException $e) {
             throw $e;
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             throw new ServiceException($e->getMessage(), 500);
         }
     }
 
     public function delete(string $id): void
     {
-        try{
+        try {
             $category = $this->getById($id)->toModel();
             $category->is_active = false;
 
             $this->categoryProductRepository->update($category);
-        }catch(ServiceException $e){
+        } catch (ServiceException $e) {
             throw $e;
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             throw new ServiceException($e->getMessage(), 500);
         }
     }
 
     public function getAll(Request $request): CategoryProductResource
     {
-        try{
+        try {
             $categories = $this->categoryProductRepository->findAll($request);
             return new CategoryProductResource($categories);
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             throw new ServiceException($e->getMessage(), 500);
         }
     }
 
     public function getById(string $id): CategoryProductResource
     {
-        try{
+        try {
             $category = $this->categoryProductRepository->findById($id);
 
-            if(is_null($category)){
+            if (is_null($category)) {
                 throw new ServiceException("Category not found", 404);
             }
 
             return new CategoryProductResource($category);
-        }catch(ServiceException $e){
+        } catch (ServiceException $e) {
             throw $e;
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             throw new ServiceException($e->getMessage(), 500);
         }
     }
