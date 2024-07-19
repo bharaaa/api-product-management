@@ -52,9 +52,11 @@ class CategoryProductController extends Controller
             return $this->errorResponse($e->getMessage(), $e->getCode());
         }
     }
-    public function update(CategoryProductUpdateRequest $request): JsonResponse
+    public function update(CategoryProductUpdateRequest $request, string $id): JsonResponse
     {
         try {
+            if ($request->id != $id) throw new \Exception("bad request", 400);
+
             $category = $this->categoryProductService->update($request);
 
             return $this->successResponse($category, "Successfully update category product", 200);
@@ -63,7 +65,7 @@ class CategoryProductController extends Controller
         }
     }
 
-    public function deleteById(string $id): JsonResponse
+    public function delete(string $id): JsonResponse
     {
         try {
             $this->categoryProductService->delete($id);
