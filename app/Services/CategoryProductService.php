@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Exceptions\ServiceException;
 use App\Http\Requests\CategoryProductRequest;
+use App\Http\Requests\CategoryProductUpdateRequest;
 use App\Http\Resources\CategoryProductCollection;
 use App\Http\Resources\CategoryProductResource;
 use App\Models\CategoryProduct;
@@ -37,7 +38,7 @@ class CategoryProductService implements CategoryProductServiceInterface
         }
     }
 
-    public function update(CategoryProductRequest $request): CategoryProductResource
+    public function update(CategoryProductUpdateRequest $request): CategoryProductResource
     {
         $data = $request->validated();
         try {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryProductRequest;
+use App\Http\Requests\CategoryProductUpdateRequest;
 use App\Services\Contracts\CategoryProductServiceInterface;
 use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
@@ -51,11 +52,9 @@ class CategoryProductController extends Controller
             return $this->errorResponse($e->getMessage(), $e->getCode());
         }
     }
-    public function update(CategoryProductRequest $request, string $id): JsonResponse
+    public function update(CategoryProductUpdateRequest $request): JsonResponse
     {
         try {
-            if ($request->id != $id) throw new \Exception("bad request", 400);
-
             $category = $this->categoryProductService->update($request);
 
             return $this->successResponse($category, "Successfully update category product", 200);
